@@ -45,7 +45,7 @@
   overlay.innerHTML = `
     <div class="auth-card">
       <h2>管理画面ログイン</h2>
-      <p>WebAid 社員専用です。共有パスワードを入力してください。</p>
+      <p>Web8 社員専用です。共有パスワードを入力してください。</p>
       <div class="auth-error" id="authError"></div>
       <input type="password" id="authPw" placeholder="パスワード" autofocus />
       <button id="authBtn">入る</button>

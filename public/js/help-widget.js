@@ -5,7 +5,7 @@ const FAQ = [
   {
     keywords: ["パスワード", "ログイン", "admin", "管理画面"],
     q: "管理画面のパスワードは？",
-    a: "<strong>Web82525</strong> です（W は大文字、それ以外は小文字+数字）。WebAid 社員で共有してください。"
+    a: "<strong>Web82525</strong> です（W は大文字、それ以外は小文字+数字）。Web8 社員で共有してください。"
   },
   {
     keywords: ["api", "キー", "claude", "ai", "分析", "プロンプト", "claude.ai"],

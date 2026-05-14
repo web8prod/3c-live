@@ -2,7 +2,7 @@
 
 参加者がスマホ・PCから同時に書き込み、主催者がその場で集計と Claude AI による未来バリュープロポジション提案までできる Web ツールです。
 
-- **管理画面** `/admin.html` — WebAid 社員専用（パスワード保護）。セッションを作成・管理
+- **管理画面** `/admin.html` — Web8 社員専用（パスワード保護）。セッションを作成・管理
 - **実施画面** `/host.html?code=XXXXXX` — QRコード表示、参加者一覧、付箋ライブフィード
 - **受講者画面** `/?code=XXXXXX` または `/room.html?code=XXXXXX` — 参加者が付箋投稿（顧客／競合／自社）
 - **分析画面** `/analyze.html?code=XXXXXX` — キーワード集計、類似クラスター、AI 提案
@@ -64,7 +64,7 @@ API キーの取得: https://console.anthropic.com → API Keys → Create Key
 
 ### 独自ドメイン
 
-`https://3c-live-xxxx.vercel.app` を `https://3c.webaid.jp` 等に変えたい場合:
+`https://3c-live-xxxx.vercel.app` を `https://3c.web8.jp` 等に変えたい場合:
 
 Vercel Dashboard → Project Settings → Domains → Add domain → 案内に従って DNS の CNAME を設定。
 
