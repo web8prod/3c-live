@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Claude Code local config
+.claude/
+
+# Dependencies
+node_modules/
+
+# Deployment & build outputs
+.vercel/
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

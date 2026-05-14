@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3C Live ボード</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body data-view="sticky">
+
+<header class="app-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span>●</span>3C Live</a>
+    <div class="header-meta" id="roomTitleMeta"></div>
+  </div>
+</header>
+
+<div class="room-toolbar">
+  <span class="name-pill" id="namePill">あなた: <strong id="meName" style="margin-left:4px;">―</strong></span>
+  <span class="room-code-pill" id="codePill">------</span>
+  <span class="toolbar-spacer"></span>
+  <span style="color:var(--subtle);font-size:13px;" id="noteCountLabel">付箋: 0枚</span>
+  <div class="view-toggle" role="tablist" aria-label="表示モード">
+    <button id="viewSticky" role="tab" aria-selected="true">付箋</button>
+    <button id="viewList"   role="tab" aria-selected="false">リスト</button>
+  </div>
+</div>
+
+<div class="room-shell">
+  <div class="board" id="board"></div>
+</div>
+
+<!-- Note edit/add modal -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">付箋を追加</h3>
+    <div class="modal-meta" id="modalMeta"></div>
+    <textarea id="modalText" maxlength="200" placeholder="思いついたことを書いてみましょう（200文字以内）"></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="modalCancel">キャンセル</button>
+      <button class="btn btn-teal" id="modalSave">保存</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/js/room.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3C Live | 3C分析リアルタイム共同入力ツール</title>
+  <meta name="description" content="ワークショップ参加者がスマホ・PCから同時に書き込める3C分析ツール。" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span>●</span>3C Live</a>
+    <div class="header-meta">3C分析リアルタイム共同入力</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>3C分析を、<em>リアルタイム共同編集</em>で。</h1>
+    <p>参加者がスマホ・PCから同時に書き込み、主催者はその場で集計とAIによる未来バリュープロポジションまで導出できます。</p>
+  </div>
+</section>
+
+<div class="cards-grid">
+
+  <div class="card">
+    <h2>📊 主催者の方</h2>
+    <p class="muted">セッションを管理・実施する場合はこちらから。</p>
+    <a class="btn btn-primary" href="/admin.html" style="width:100%;justify-content:center;">管理画面へ進む</a>
+  </div>
+
+  <div class="card">
+    <h2>✋ 受講者の方</h2>
+    <p class="muted">主催者から渡された6桁コードを入力してください。</p>
+    <div class="form-row">
+      <label for="joinName">あなたの名前</label>
+      <input id="joinName" type="text" maxlength="32" placeholder="例: 田中" autocomplete="name" />
+    </div>
+    <div class="form-row">
+      <label for="joinCode">部屋コード</label>
+      <input id="joinCode" class="code-input" type="text" maxlength="6" placeholder="ABCDEF" autocapitalize="characters" autocomplete="off" />
+    </div>
+    <button id="joinRoomBtn" class="btn btn-teal">部屋に入る</button>
+  </div>
+
+</div>
+
+<script type="module" src="/js/home.js"></script>
+</body>
+</html>

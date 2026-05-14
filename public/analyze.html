@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>分析画面 | 3C Live</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <a href="/admin.html" class="logo"><span>●</span>3C Live</a>
+    <div class="header-meta"><a href="/admin.html" style="color:var(--subtle);">← 管理画面に戻る</a></div>
+  </div>
+</header>
+
+<div class="analyze-shell">
+
+  <div class="seminar-header">
+    <h1 id="seminarTitle">分析画面</h1>
+    <div id="seminarMeta" class="muted-small"></div>
+  </div>
+
+  <div class="summary-bar">
+    <div class="summary-card"><div class="label">部屋コード</div><div class="value" id="sCode">------</div></div>
+    <div class="summary-card"><div class="label">参加者</div><div class="value" id="sPeople">0</div></div>
+    <div class="summary-card"><div class="label">付箋数</div><div class="value" id="sNotes">0</div></div>
+    <div class="summary-card"><div class="label">最終更新</div><div class="value" id="sUpdated" style="font-size:14px;">―</div></div>
+  </div>
+
+  <div class="analyze-grid">
+
+    <!-- Left: Cluster view -->
+    <div class="panel">
+      <h2>キーワードクラスター</h2>
+      <div class="tabs" id="catTabs">
+        <button data-cat="customer" class="active">顧客</button>
+        <button data-cat="competitor">競合</button>
+        <button data-cat="company">自社</button>
+      </div>
+
+      <h3>頻出キーワード Top 15</h3>
+      <div class="kw-bars" id="kwBars">
+        <div class="empty-state">付箋が集まるとここに表示されます。</div>
+      </div>
+
+      <h3 style="margin-top:24px;">類似付箋クラスター</h3>
+      <div id="clusters">
+        <div class="empty-state">付箋が集まるとここにグループが表示されます。</div>
+      </div>
+
+      <div style="margin-top:18px;">
+        <button class="btn btn-outline btn-sm" id="exportJsonBtn">JSON書き出し</button>
+        <button class="btn btn-outline btn-sm" id="exportCsvBtn">CSV書き出し</button>
+      </div>
+    </div>
+
+    <!-- Right: Claude AI panel -->
+    <div class="panel">
+      <h2>未来バリュープロポジション提案（AI）</h2>
+      <div class="api-key-block">
+        <label for="apiKey" style="font-size:13px;font-weight:600;color:var(--navy);">Anthropic API キー</label>
+        <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" />
+        <label class="checkbox"><input type="checkbox" id="rememberKey" /> このタブだけで保持する（リロードで消える）</label>
+
+        <label for="modelSelect" style="font-size:13px;font-weight:600;color:var(--navy);margin-top:8px;">モデル</label>
+        <select id="modelSelect"></select>
+
+        <button class="btn btn-primary" id="generateBtn" style="margin-top:6px;">提案を生成する</button>
+
+        <div class="notice">
+          APIキーはこのブラウザから直接 Anthropic に送信されます（このサイトのサーバーには送られません）。共有PCでは「セッション保持」をオフのままお使いください。
+        </div>
+      </div>
+
+      <h3 style="margin-top:18px;">提案結果</h3>
+      <div class="ai-output" id="aiOutput"></div>
+      <div style="margin-top:10px;">
+        <button class="btn btn-outline btn-sm" id="copyOutBtn">提案をコピー</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script type="module" src="/js/analyze.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>実施画面 | 3C Live</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <a href="/admin.html" class="logo"><span>●</span>3C Live</a>
+    <div class="header-meta"><a href="/admin.html" style="color:var(--subtle);">← 管理画面に戻る</a></div>
+  </div>
+</header>
+
+<div class="host-shell">
+
+  <div class="host-banner">
+    <h1 id="hostTitle">セッション</h1>
+    <div id="hostMeta"></div>
+  </div>
+
+  <div class="host-grid">
+    <div class="host-left">
+      <div class="code-block">
+        <div class="code-label">参加コード</div>
+        <div class="code-display" id="roomCode">------</div>
+      </div>
+      <div class="code-actions" style="margin-top:18px;">
+        <button id="copyUrlBtn" class="btn btn-outline btn-sm">参加URLをコピー</button>
+        <a id="enterRoomBtn" class="btn btn-teal btn-sm" href="#" target="_blank">受講者画面を開く</a>
+        <a id="analyzeBtn" class="btn btn-primary btn-sm" href="#">分析画面を開く</a>
+      </div>
+
+      <div class="participants" style="margin-top:24px;">
+        <h3>参加者 <span id="pCount" style="color:var(--subtle);font-weight:600;font-size:13px;">(0人)</span></h3>
+        <div class="participant-list" id="pList">
+          <span style="color:var(--subtle);font-size:13px;">QRコードを読み取った人がここに表示されます。</span>
+        </div>
+      </div>
+
+      <div class="counts-grid">
+        <div class="count-card customer"><div class="cc-label">顧客</div><div class="cc-value" id="cnt-customer">0</div></div>
+        <div class="count-card competitor"><div class="cc-label">競合</div><div class="cc-value" id="cnt-competitor">0</div></div>
+        <div class="count-card company"><div class="cc-label">自社</div><div class="cc-value" id="cnt-company">0</div></div>
+      </div>
+    </div>
+
+    <div class="host-right">
+      <div class="qr-box" id="qr"></div>
+      <div class="qr-caption">参加者はこのQRコードをスキャン</div>
+      <div class="qr-url" id="qrUrl"></div>
+    </div>
+  </div>
+
+  <!-- Live note ticker -->
+  <div class="live-feed-wrap">
+    <h2>📌 投稿された付箋（リアルタイム）</h2>
+    <p class="muted">参加者が投稿すると、最新の付箋がここに浮き出ます。</p>
+    <div class="live-feed" id="liveFeed">
+      <div class="empty-state">まだ付箋がありません。</div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="/js/host.js"></script>
+</body>
+</html>

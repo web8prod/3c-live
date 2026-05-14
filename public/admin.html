@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理画面 | 3C Live</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/js/auth-guard.js"></script>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <a href="/admin.html" class="logo"><span>●</span>3C Live</a>
+    <div class="header-meta" style="display:flex;align-items:center;gap:12px;">
+      <span>セッション管理画面</span>
+      <button onclick="window.__c3liveAdminLogout()" class="btn btn-ghost btn-sm" type="button" style="padding:4px 10px;">ログアウト</button>
+    </div>
+  </div>
+</header>
+
+<div class="admin-shell">
+
+  <div class="admin-intro">
+    <h1>セッション一覧</h1>
+    <p>過去・予定の3C分析セッションを管理できます。「+ 新しいセッション」で追加、行をクリックで実施画面を開きます。</p>
+  </div>
+
+  <div class="admin-toolbar">
+    <button id="newSeminarBtn" class="btn btn-primary">＋ 新しいセッション</button>
+  </div>
+
+  <div class="seminar-table-wrap">
+    <table class="seminar-table">
+      <thead>
+        <tr>
+          <th>開催日時</th>
+          <th>セッション名</th>
+          <th>主催者</th>
+          <th>コード</th>
+          <th class="num">参加者</th>
+          <th class="num">付箋</th>
+          <th>状態</th>
+          <th class="actions">操作</th>
+        </tr>
+      </thead>
+      <tbody id="seminarRows">
+        <tr><td colspan="8" class="empty-state">まだセッションがありません。「＋ 新しいセッション」から作成してください。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="admin-howto">
+    <h3>使い方の流れ</h3>
+    <ol>
+      <li><strong>管理画面</strong>（このページ）でセッションを作成します。</li>
+      <li><strong>実施画面</strong>を開いて、参加者にQRコード or 6桁コードを共有します。</li>
+      <li>参加者は<strong>受講者画面</strong>から付箋を入力。実施画面とすべての受講者画面に即座に表示されます。</li>
+      <li>セッション終了時に「分析画面」を開いて、キーワード集計とAIによる未来バリュープロポジション提案を確認します。</li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- New session modal -->
+<div class="modal-backdrop" id="newSeminarModal">
+  <div class="modal" style="max-width:520px;">
+    <h3>新しいセッションを作成</h3>
+    <div class="modal-meta">入力後「作成する」を押すと6桁コードが発行されます。</div>
+    <div class="form-row" style="margin-top:14px;">
+      <label>セッション名</label>
+      <input id="newTitle" type="text" maxlength="80" placeholder="例: 5/14 マーケティング入門講座" />
+    </div>
+    <div class="form-row">
+      <label>開催日時</label>
+      <input id="newSchedule" type="datetime-local" />
+    </div>
+    <div class="form-row">
+      <label>主催者・ファシリテータ名</label>
+      <input id="newHostName" type="text" maxlength="32" placeholder="例: 草間" />
+    </div>
+    <div class="form-row">
+      <label>メモ（任意）</label>
+      <input id="newMemo" type="text" maxlength="120" placeholder="例: 中小企業経営者15名を想定" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="newCancelBtn">キャンセル</button>
+      <button class="btn btn-primary" id="newCreateBtn">作成する</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/js/admin.js"></script>
+</body>
+</html>
