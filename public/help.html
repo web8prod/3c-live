@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>使い方 | 3C Live</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <a href="/" class="logo"><span>●</span>3C Live</a>
+    <div class="header-meta"><a href="/" style="color:var(--subtle);">← ホームへ</a></div>
+  </div>
+</header>
+
+<div class="help-shell">
+
+  <div class="help-hero">
+    <h1>3C Live の使い方</h1>
+    <p>セッション会場で参加者がスマホから付箋を投稿、主催者がその場で集計・AI 分析までできるオンライン 3C 分析ツールです。</p>
+  </div>
+
+  <!-- Section 1: 全体像 -->
+  <section class="help-section">
+    <h2>📍 全体像（1分で分かる）</h2>
+    <div class="help-flow">
+      <div class="help-flow-card">
+        <div class="num">①</div>
+        <h3>主催者がセッション作成</h3>
+        <p><strong>管理画面</strong>でセッション名・日時を入力 → 6桁コードが発行されます</p>
+      </div>
+      <div class="help-flow-card">
+        <div class="num">②</div>
+        <h3>実施画面で QR 共有</h3>
+        <p><strong>実施画面</strong>を大画面に投影 → 参加者がスマホで QR 読み取り</p>
+      </div>
+      <div class="help-flow-card">
+        <div class="num">③</div>
+        <h3>参加者が付箋投稿</h3>
+        <p>顧客・競合・自社の各テーマに思ったことを書く → リアルタイムで全員の画面に反映</p>
+      </div>
+      <div class="help-flow-card">
+        <div class="num">④</div>
+        <h3>分析画面で AI 提案</h3>
+        <p>キーワード集計・類似クラスター → Claude AI で<strong>未来バリュープロポジション</strong>を3案生成</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: 4つの画面 -->
+  <section class="help-section">
+    <h2>🎬 4つの画面</h2>
+
+    <div class="screen-card">
+      <h3>🔒 管理画面 <code>/admin</code></h3>
+      <p><strong>誰が見る？</strong> WebAid 社員のみ（パスワード保護）</p>
+      <p><strong>パスワード:</strong> <code>Web82525</code></p>
+      <p><strong>何ができる？</strong></p>
+      <ul>
+        <li>新しいセッションを作る（タイトル・日時・主催者名・メモ）</li>
+        <li>過去・予定のセッション一覧を確認</li>
+        <li>各セッションの「実施」「分析」画面へジャンプ</li>
+        <li>不要なセッションを一覧から外す</li>
+      </ul>
+    </div>
+
+    <div class="screen-card">
+      <h3>🎤 実施画面 <code>/host?code=XXXXXX</code></h3>
+      <p><strong>誰が見る？</strong> 主催者がプロジェクターやモニターに投影</p>
+      <p><strong>何が映る？</strong></p>
+      <ul>
+        <li>大きな <strong>QR コード</strong>（参加者がスマホで読む）</li>
+        <li>6桁の参加コード（手入力でも入れる人向け）</li>
+        <li>参加者一覧（誰が入室済みか）</li>
+        <li>顧客・競合・自社の <strong>付箋枚数カウント</strong></li>
+        <li>投稿された付箋の <strong>ライブフィード</strong>（新着が浮き上がる）</li>
+      </ul>
+    </div>
+
+    <div class="screen-card">
+      <h3>✋ 受講者画面 <code>/?code=XXXXXX</code> または <code>/room?code=XXXXXX</code></h3>
+      <p><strong>誰が見る？</strong> セッション参加者（誰でもアクセス可）</p>
+      <p><strong>使い方:</strong></p>
+      <ul>
+        <li>QR 読み取り or 6桁コード入力 → 名前入力</li>
+        <li>顧客（欲求/不満/不安/不便）・競合（印象/特徴）・自社（挑戦したいこと/できそうなこと/やりたいこと/経験/資産/資源/リソース/その他）の各テーマに付箋投稿</li>
+        <li>「+ 自分でテーマを作って追加」で独自テーマも作れる（例: コスト感）</li>
+        <li>付箋表示モード「付箋⇔リスト」切替可能</li>
+      </ul>
+    </div>
+
+    <div class="screen-card">
+      <h3>📊 分析画面 <code>/analyze?code=XXXXXX</code></h3>
+      <p><strong>誰が見る？</strong> 主催者（セッション終了後、または途中の中間集計）</p>
+      <p><strong>何ができる？</strong></p>
+      <ul>
+        <li>顧客／競合／自社それぞれの <strong>頻出キーワード Top 15</strong>（バーグラフ）</li>
+        <li>意見が似ている付箋の <strong>自動クラスター</strong></li>
+        <li>セッション全体を <strong>JSON / CSV 書き出し</strong>（記録保存用）</li>
+        <li>🟢 <strong>無料</strong>: 「📋 プロンプトをコピー」→ Claude.ai に貼って AI 分析（推奨）</li>
+        <li>有料: Anthropic API キー入力でアプリ内ワンクリック生成</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Section 3: 当日の流れ（主催者向け） -->
+  <section class="help-section">
+    <h2>📋 主催者：当日の流れ</h2>
+    <ol class="checklist">
+      <li><strong>前日まで</strong>: <a href="/admin">管理画面</a> でセッションを作成（タイトル＝何のイベントか、日時、主催者名）</li>
+      <li><strong>当日 開始10分前</strong>: 会場の PC で実施画面を開いて投影。Wi-Fi が安定していることを確認</li>
+      <li><strong>セッション開始</strong>: 参加者に「画面の QR を読み取ってください」と案内</li>
+      <li><strong>進行中</strong>: 各カテゴリで参加者に書いてもらう。実施画面のライブフィードで盛り上がりが見える</li>
+      <li><strong>振り返り</strong>: 分析画面を別タブで開いてキーワード集計とクラスターを見せる</li>
+      <li><strong>AI 提案</strong>: 「プロンプトをコピー」→ Claude.ai に貼って3案出させる → 参加者と議論</li>
+      <li><strong>記録</strong>: JSON / CSV 書き出しでデータをアーカイブ</li>
+    </ol>
+  </section>
+
+  <!-- Section 4: FAQ -->
+  <section class="help-section">
+    <h2>❓ よくある質問（FAQ）</h2>
+
+    <details class="faq">
+      <summary>Q. 管理画面のパスワードは？</summary>
+      <p><strong>A. <code>Web82525</code></strong> です。WebAid 社員で共有してください。
+      パスワードはブラウザのセッションに保存されるので、タブを開き直したら再入力が必要です。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. パスワードを変更したい</summary>
+      <p>A. 開発担当に依頼してください。<code>public/js/auth-guard.js</code> の <code>EXPECTED_HASH</code> 定数を新パスワードのハッシュに置き換えて GitHub に push すると Vercel が自動再デプロイします。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. AI 提案を使うのに API キーが必要？</summary>
+      <p>A. <strong>不要です</strong>。分析画面の緑のボタン「📋 プロンプトをコピー」を押すと、整形済みのプロンプトがクリップボードに入るので、それを <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> や ChatGPT の無料プランに貼り付けるだけで分析できます。</p>
+      <p>有料の API キーは「ワンクリック・サイト内完結」が欲しい場合のみ。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. 参加者の人数に上限はある？</summary>
+      <p>A. 技術的には数百人まで OK ですが、実用的には<strong>30〜50人くらいまで</strong>が運用しやすいです（人数が多いとライブフィードが流れる速度が速く、議論しにくくなる）。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. 参加者が間違えて投稿した付箋を消すには？</summary>
+      <p>A. 投稿者本人が自分の画面で付箋にカーソルを合わせると「✎ 編集」「✕ 削除」のボタンが出ます。他人の付箋は消せません。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. セッション終了後もデータは残る？</summary>
+      <p>A. <strong>はい、永続的に Supabase に保存</strong>されます。後日、分析画面の URL（<code>/analyze?code=XXXXXX</code>）を開けば同じデータを参照できます。「削除」ボタンは一覧から外すだけで、データ本体は消えません。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. オフラインでも使える？</summary>
+      <p>A. <strong>いいえ</strong>、参加者全員がインターネット接続している必要があります（Supabase クラウド DB を介してリアルタイム同期するため）。会場のWi-Fi が弱い場合は、各自スマホの 4G/5G 接続を案内してください。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. 「セミナー」じゃない用途でも使える？</summary>
+      <p>A. もちろん。**社内ブレスト、合宿、ワークショップ、戦略会議**など、3C 分析が必要な場面ならどこでも使えます。セッション名は自由入力なので「2026/5/14 中小企業オーナー向け勉強会」とか「Q2 戦略会議」とか、開催の中身が分かる名前にしてください。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. 受講者画面の URL を直接スマホで開いてもらえる？</summary>
+      <p>A. はい。<code>https://3c-live-app.vercel.app/?code=XXXXXX</code> の <code>XXXXXX</code> 部分を 6桁コードに置き換えて共有すれば、QR を経由せずに直接アクセス可能。Slack や Chatwork で URL を送ってください。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. 無料で使えるって本当？追加料金は？</summary>
+      <p>A. <strong>はい、完全無料</strong>です。
+      <ul>
+        <li>Vercel (ホスティング): 無料枠で十分</li>
+        <li>Supabase (DB): 無料枠で 500MB DB / 2GB 通信／月</li>
+        <li>Claude.ai (AI 分析): 無料プランで OK</li>
+      </ul>
+      ※ Anthropic API キー方式を使う場合のみ、1セッション数十円かかります（任意・推奨は無料の Claude.ai 経由）。</p>
+    </details>
+
+    <details class="faq">
+      <summary>Q. 独自ドメイン（例: <code>3c.webaid.jp</code>）にしたい</summary>
+      <p>A. Vercel ダッシュボード → Project Settings → Domains → Add domain で DNS の CNAME 設定をすれば数分で切り替わります。開発担当に依頼してください。</p>
+    </details>
+  </section>
+
+  <!-- Section 5: トラブルシューティング -->
+  <section class="help-section">
+    <h2>🛠 困ったときは</h2>
+    <ul class="trouble-list">
+      <li>
+        <strong>付箋がリアルタイムで反映されない</strong><br>
+        → Wi-Fi 接続を確認。ブラウザのリロード（⌘+R / Ctrl+R）で復旧することが多いです。
+      </li>
+      <li>
+        <strong>管理画面でパスワードが通らない</strong><br>
+        → 大文字小文字を確認。「Web82525」の頭文字は大文字 W、小文字 ebaid と紛らわしいです。
+      </li>
+      <li>
+        <strong>QR コードが読めない</strong><br>
+        → 投影画面の解像度を上げる、または 6桁の参加コードを口頭で伝える。
+      </li>
+      <li>
+        <strong>受講者画面で「この部屋は存在しません」と出る</strong><br>
+        → 6桁コードのスペルミス・大文字小文字を確認。アルファベット O とゼロ 0、I と 1 が混ざりやすいです。
+      </li>
+      <li>
+        <strong>その他</strong><br>
+        → 画面右下の <strong>💬 ヘルプボタン</strong> から質問してください。または開発担当に直接連絡。
+      </li>
+    </ul>
+  </section>
+
+  <!-- Section 6: アーキテクチャ（参考） -->
+  <section class="help-section">
+    <h2>🔧 技術メモ（開発担当向け）</h2>
+    <ul>
+      <li>ホスティング: <strong>Vercel</strong>（GitHub <code>web8prod/3c-live</code> 連携、main へ push で自動再デプロイ）</li>
+      <li>データ: <strong>Supabase</strong> Postgres + Realtime（プロジェクト名 <code>3c-live</code>, リージョン Tokyo）</li>
+      <li>テーブル: <code>rooms</code> / <code>notes</code> / <code>participants</code></li>
+      <li>セキュリティ: 管理画面はクライアント側パスワード、書き込みは Row Level Security + アプリ層 hostToken</li>
+      <li>AI 分析: Anthropic Claude（API キー or Claude.ai 経由）</li>
+    </ul>
+  </section>
+
+</div>
+
+<script type="module" src="/js/help-widget.js"></script>
+</body>
+</html>

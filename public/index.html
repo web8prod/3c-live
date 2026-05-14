@@ -12,7 +12,7 @@
 <header class="app-header">
   <div class="header-inner">
     <a href="/" class="logo"><span>●</span>3C Live</a>
-    <div class="header-meta">3C分析リアルタイム共同入力</div>
+    <div class="header-meta"><a href="/help" style="color:var(--subtle);text-decoration:none;">📖 使い方</a></div>
   </div>
 </header>
 
@@ -47,6 +47,37 @@
 
 </div>
 
+<!-- Overview section -->
+<section class="overview">
+  <h2>このツールでできること</h2>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="icon">📱</div>
+      <h3>スマホで同時投稿</h3>
+      <p>QR コードで参加。複数人が同時に付箋を書いて、全員の画面にリアルタイム反映</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon">🎯</div>
+      <h3>3C分析を可視化</h3>
+      <p>顧客 (Customer) / 競合 (Competitor) / 自社 (Company) を体系的に整理</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon">🤖</div>
+      <h3>AI で戦略提案</h3>
+      <p>集まった付箋を Claude AI が分析、未来バリュープロポジションを3案提案</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon">💰</div>
+      <h3>完全無料</h3>
+      <p>Vercel + Supabase + Claude.ai の無料枠で運用可能、初期費用ゼロ</p>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:24px;">
+    <a class="btn btn-outline" href="/help">📖 詳しい使い方を見る</a>
+  </div>
+</section>
+
 <script type="module" src="/js/home.js"></script>
+<script type="module" src="/js/help-widget.js"></script>
 </body>
 </html>

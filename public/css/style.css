@@ -350,6 +350,64 @@ header.app-header {
 .prompt-copy-block h3 { color: var(--teal-dark); font-size: 15px; margin-bottom: 8px; }
 .prompt-copy-block .btn { padding: 11px 16px; font-size: 14px; }
 
+/* ===== Help page ===== */
+.help-shell { max-width: 880px; margin: 0 auto; padding: 32px 24px 100px; }
+.help-hero { margin-bottom: 32px; padding: 28px; background: linear-gradient(135deg, var(--navy), var(--navy-dark)); color: #fff; border-radius: 14px; }
+.help-hero h1 { font-size: 26px; margin-bottom: 8px; }
+.help-hero p { color: rgba(255,255,255,.85); font-size: 15px; }
+
+.help-section { margin-bottom: 40px; }
+.help-section h2 { color: var(--navy); font-size: 20px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--teal-bg); }
+
+.help-flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.help-flow-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.help-flow-card .num { display: inline-block; width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; background: var(--teal); color: #fff; font-weight: 700; margin-bottom: 8px; }
+.help-flow-card h3 { color: var(--navy); font-size: 14px; margin-bottom: 6px; }
+.help-flow-card p { color: var(--subtle); font-size: 13px; line-height: 1.6; }
+
+.screen-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 14px; }
+.screen-card h3 { color: var(--navy); font-size: 16px; margin-bottom: 8px; }
+.screen-card h3 code { background: var(--bg-light); padding: 2px 8px; border-radius: 6px; font-size: 13px; color: var(--teal-dark); }
+.screen-card p { font-size: 14px; margin-bottom: 6px; }
+.screen-card code { background: var(--bg-light); padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+.screen-card ul { padding-left: 22px; margin-top: 6px; font-size: 14px; line-height: 1.9; }
+
+.checklist { padding-left: 22px; font-size: 14px; line-height: 2; }
+.checklist li { margin-bottom: 4px; }
+.checklist li::marker { color: var(--teal); font-weight: 700; }
+
+.faq { background: #fff; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; }
+.faq summary { padding: 14px 18px; cursor: pointer; font-weight: 600; color: var(--navy); font-size: 14px; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::before { content: "❓ "; }
+.faq[open] summary::before { content: "✅ "; }
+.faq p { padding: 0 18px 16px; font-size: 13px; color: var(--text); line-height: 1.8; }
+.faq code { background: var(--bg-light); padding: 1px 6px; border-radius: 4px; }
+.faq ul { padding-left: 38px; margin: 8px 0; font-size: 13px; line-height: 1.8; }
+
+.trouble-list { list-style: none; padding: 0; }
+.trouble-list li { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--orange); border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; font-size: 14px; line-height: 1.7; }
+
+/* ===== Home page overview section ===== */
+.overview {
+  max-width: 1080px; margin: 32px auto; padding: 0 24px;
+}
+.overview h2 {
+  text-align: center; color: var(--navy);
+  font-size: 22px; margin-bottom: 24px;
+}
+.overview-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.overview-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px; text-align: center;
+}
+.overview-card .icon { font-size: 32px; margin-bottom: 8px; }
+.overview-card h3 { color: var(--navy); font-size: 15px; margin-bottom: 6px; }
+.overview-card p { font-size: 13px; color: var(--subtle); line-height: 1.6; }
+
 .api-key-block { display: flex; flex-direction: column; gap: 8px; }
 .api-key-block input, .api-key-block select {
   width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
