@@ -1,9 +1,9 @@
 // Admin password gate. Loaded by admin.html only.
-// Password "webaid2026" — to change, run:
+// Password "Web82525" — to change, run:
 //   printf '%s' 'NEW_PASSWORD' | shasum -a 256
 // then replace EXPECTED_HASH below and re-deploy.
 (() => {
-  const EXPECTED_HASH = "885f1a7d4342c0048f36967888a197cbd2e997d946d67ac308c6d8ed60d9d1b7"; // SHA-256("webaid2026")
+  const EXPECTED_HASH = "615bae72df320194b063f94638b7c69be51994131a2c2d1936339fde3ab4a3f7"; // SHA-256("Web82525")
   const SESSION_KEY = "c3live.admin.authed";
 
   if (sessionStorage.getItem(SESSION_KEY) === "1") return;
