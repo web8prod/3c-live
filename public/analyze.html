@@ -56,23 +56,42 @@
       </div>
     </div>
 
-    <!-- Right: Claude AI panel -->
+    <!-- Right: AI proposal panel -->
     <div class="panel">
-      <h2>未来バリュープロポジション提案（AI）</h2>
-      <div class="api-key-block">
-        <label for="apiKey" style="font-size:13px;font-weight:600;color:var(--navy);">Anthropic API キー</label>
-        <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" />
-        <label class="checkbox"><input type="checkbox" id="rememberKey" /> このタブだけで保持する（リロードで消える）</label>
+      <h2>未来バリュープロポジション提案</h2>
 
-        <label for="modelSelect" style="font-size:13px;font-weight:600;color:var(--navy);margin-top:8px;">モデル</label>
-        <select id="modelSelect"></select>
-
-        <button class="btn btn-primary" id="generateBtn" style="margin-top:6px;">提案を生成する</button>
-
-        <div class="notice">
-          APIキーはこのブラウザから直接 Anthropic に送信されます（このサイトのサーバーには送られません）。共有PCでは「セッション保持」をオフのままお使いください。
-        </div>
+      <!-- Free path: copy prompt and paste to Claude.ai / ChatGPT / etc. -->
+      <div class="prompt-copy-block">
+        <h3 style="margin-top:0;">🟢 無料で分析する（推奨）</h3>
+        <p style="font-size:13px;color:var(--subtle);line-height:1.6;">
+          下のボタンで、優秀なマーケターとして分析してもらう用のプロンプトをクリップボードにコピーできます。
+          <a href="https://claude.ai" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;">claude.ai</a>
+          や ChatGPT に貼り付けるだけで AI 分析が無料で実行できます。
+        </p>
+        <button class="btn btn-teal" id="copyPromptBtn" style="width:100%;">
+          📋 プロンプトをコピー
+        </button>
       </div>
+
+      <details style="margin-top:18px;">
+        <summary style="cursor:pointer;font-size:13px;color:var(--subtle);font-weight:600;">
+          有料で API 経由で自動生成する（任意）
+        </summary>
+        <div class="api-key-block" style="margin-top:10px;">
+          <label for="apiKey" style="font-size:13px;font-weight:600;color:var(--navy);">Anthropic API キー</label>
+          <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" />
+          <label class="checkbox"><input type="checkbox" id="rememberKey" /> このタブだけで保持する（リロードで消える）</label>
+
+          <label for="modelSelect" style="font-size:13px;font-weight:600;color:var(--navy);margin-top:8px;">モデル</label>
+          <select id="modelSelect"></select>
+
+          <button class="btn btn-primary" id="generateBtn" style="margin-top:6px;">提案を生成する</button>
+
+          <div class="notice">
+            APIキーはこのブラウザから直接 Anthropic に送信されます（このサイトのサーバーには送られません）。共有PCでは「セッション保持」をオフのままお使いください。
+          </div>
+        </div>
+      </details>
 
       <h3 style="margin-top:18px;">提案結果</h3>
       <div class="ai-output" id="aiOutput"></div>

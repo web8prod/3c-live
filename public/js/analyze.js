@@ -237,6 +237,84 @@ copyOutBtn.addEventListener("click", async () => {
   catch { showToast("コピーに失敗しました"); }
 });
 
+// ===== Build & copy a marketing-analysis prompt (for Claude.ai / ChatGPT) =====
+function buildClaudePrompt() {
+  const groupBySub = (cat) => {
+    const notes = allNotes.filter(n => n.category === cat);
+    const bySub = new Map();
+    for (const n of notes) {
+      if (!bySub.has(n.sub)) bySub.set(n.sub, []);
+      bySub.get(n.sub).push(n.text);
+    }
+    if (bySub.size === 0) return "（データなし）";
+    return [...bySub.entries()].map(([sub, texts]) =>
+      `### ${sub}\n` + texts.map(t => `- ${t}`).join("\n")
+    ).join("\n\n");
+  };
+
+  const title = room?.title || "（無題のセッション）";
+  const host  = room?.hostName || "";
+  const dateStr = room?.scheduledAt ? formatDate(room.scheduledAt) : "";
+
+  return `あなたは経営戦略・マーケティングのトップコンサルタントです。
+以下は 3C 分析ワークショップで参加者から集めた付箋データです。
+このデータをもとに、**未来バリュープロポジション**（数年後の市場を見据えた、競合が真似しにくく、顧客が強く求め、自社のリソースで実現可能な独自価値）を **3案** 提案してください。
+
+# セッション情報
+- セッション名: ${title}${host ? `\n- 主催者: ${host}` : ""}${dateStr ? `\n- 開催日時: ${dateStr}` : ""}
+- 参加者付箋数: ${allNotes.length}件
+
+# 顧客（Customer）からの声
+${groupBySub("customer")}
+
+# 競合（Competitor）の印象・特徴
+${groupBySub("competitor")}
+
+# 自社（Company）のリソース・挑戦したいこと
+${groupBySub("company")}
+
+---
+
+# 出力フォーマット（Markdown）
+
+## 案 N: 〔キャッチーな提案名〕
+- **ターゲット顧客**: …
+- **独自価値**: …
+- **根拠（3Cからの読み解き）**:
+  - 顧客: …
+  - 競合: …
+  - 自社: …
+- **すぐ取れる3つのアクション**:
+  1. …
+  2. …
+  3. …
+
+## 総合考察
+3案を貫く戦略的方向性と次の一歩を 4〜6 行で。
+
+日本語で、優秀なマーケターらしい鋭い洞察を含めて書いてください。`;
+}
+
+const copyPromptBtn = document.getElementById("copyPromptBtn");
+if (copyPromptBtn) {
+  copyPromptBtn.addEventListener("click", async () => {
+    if (allNotes.length === 0) { showToast("まだ付箋がありません"); return; }
+    const prompt = buildClaudePrompt();
+    try {
+      await navigator.clipboard.writeText(prompt);
+      showToast("プロンプトをコピーしました。Claude.ai に貼り付けてください。", 3000);
+    } catch {
+      // Fallback for older browsers
+      const ta = document.createElement("textarea");
+      ta.value = prompt; document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); showToast("プロンプトをコピーしました。"); }
+      catch { showToast("コピーに失敗しました"); }
+      ta.remove();
+    }
+  });
+}
+
 function renderMarkdown(md) {
   const lines = md.replace(/\r\n?/g, "\n").split("\n");
   const out = [];

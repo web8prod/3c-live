@@ -342,6 +342,14 @@ header.app-header {
 .cluster-card .cluster-title { font-weight: 700; color: var(--navy); margin-bottom: 6px; font-size: 13px; }
 .cluster-card .cluster-notes { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
 
+.prompt-copy-block {
+  background: linear-gradient(135deg, rgba(0,154,140,.07), rgba(0,154,140,.03));
+  border: 1.5px solid var(--teal);
+  border-radius: 12px; padding: 16px;
+}
+.prompt-copy-block h3 { color: var(--teal-dark); font-size: 15px; margin-bottom: 8px; }
+.prompt-copy-block .btn { padding: 11px 16px; font-size: 14px; }
+
 .api-key-block { display: flex; flex-direction: column; gap: 8px; }
 .api-key-block input, .api-key-block select {
   width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px;
