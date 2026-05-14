@@ -297,20 +297,67 @@ ${groupBySub("company")}
 
 const copyPromptBtn = document.getElementById("copyPromptBtn");
 if (copyPromptBtn) {
-  copyPromptBtn.addEventListener("click", async () => {
+  copyPromptBtn.addEventListener("click", () => {
     if (allNotes.length === 0) { showToast("まだ付箋がありません"); return; }
-    const prompt = buildClaudePrompt();
+    openPromptModal(buildClaudePrompt());
+  });
+}
+
+// ===== Prompt modal (manual copy fallback for any environment) =====
+function openPromptModal(prompt) {
+  // Remove existing if any
+  document.getElementById("promptModal")?.remove();
+
+  const modal = document.createElement("div");
+  modal.id = "promptModal";
+  modal.className = "modal-backdrop show";
+  modal.innerHTML = `
+    <div class="modal" style="max-width:680px;width:100%;">
+      <h3>📋 AI 分析用プロンプト</h3>
+      <div class="modal-meta" style="margin-bottom:10px;">
+        下のテキストを全選択（⌘+A / Ctrl+A）→ コピー（⌘+C / Ctrl+C）して、
+        <a href="https://claude.ai" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;">claude.ai</a>
+        や ChatGPT に貼り付けてください。
+      </div>
+      <textarea id="promptText" readonly
+        style="width:100%;height:280px;padding:12px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;line-height:1.6;font-family:'SF Mono',Menlo,monospace;resize:vertical;background:#FAFBFC;"></textarea>
+      <div class="modal-actions" style="margin-top:12px;justify-content:space-between;">
+        <a href="https://claude.ai" target="_blank" rel="noopener" class="btn btn-outline btn-sm">
+          🚀 Claude.ai を開く
+        </a>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost" id="promptCloseBtn">閉じる</button>
+          <button class="btn btn-teal" id="promptCopyBtn">📋 自動コピー</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const textarea = modal.querySelector("#promptText");
+  textarea.value = prompt;
+  setTimeout(() => { textarea.focus(); textarea.select(); }, 50);
+
+  modal.querySelector("#promptCloseBtn").addEventListener("click", () => modal.remove());
+  modal.addEventListener("click", e => { if (e.target === modal) modal.remove(); });
+
+  modal.querySelector("#promptCopyBtn").addEventListener("click", async () => {
+    let copied = false;
+    // Try modern API
     try {
       await navigator.clipboard.writeText(prompt);
-      showToast("プロンプトをコピーしました。Claude.ai に貼り付けてください。", 3000);
+      copied = true;
     } catch {
-      // Fallback for older browsers
-      const ta = document.createElement("textarea");
-      ta.value = prompt; document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand("copy"); showToast("プロンプトをコピーしました。"); }
-      catch { showToast("コピーに失敗しました"); }
-      ta.remove();
+      // Fallback: execCommand
+      textarea.select();
+      try { copied = document.execCommand("copy"); } catch {}
+    }
+    if (copied) {
+      showToast("✅ コピーしました。Claude.ai に貼り付けてください。", 3000);
+    } else {
+      showToast("自動コピー失敗。上のテキストを手動で選択してコピーしてください。", 4000);
+      textarea.focus();
+      textarea.select();
     }
   });
 }
