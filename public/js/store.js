@@ -15,6 +15,8 @@ import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./supabase-config.js";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   realtime: { params: { eventsPerSecond: 10 } }
 });
+// Shared client for the step (工程2〜8) store so we keep a single Realtime socket.
+export { supabase };
 
 // ===== Field name mapping (DB snake_case ↔ JS camelCase) =====
 function roomFromRow(r) {

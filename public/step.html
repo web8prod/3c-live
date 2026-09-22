@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工程 | 3C Live</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+</head>
+<body data-view="sticky">
+
+<header class="app-header">
+  <div class="header-inner">
+    <a href="/admin.html" class="logo"><span>●</span>3C Live</a>
+    <div class="header-meta"><a href="/admin.html" style="color:var(--subtle);">← 管理画面に戻る</a></div>
+  </div>
+</header>
+
+<div class="analyze-shell step-shell">
+
+  <div class="seminar-header">
+    <h1 id="seminarTitle">工程</h1>
+    <div id="seminarMeta" class="muted-small"></div>
+  </div>
+
+  <div id="stepsNav"></div>
+
+  <div class="summary-bar">
+    <div class="summary-card"><div class="label">部屋コード</div><div class="value" id="sCode">------</div></div>
+    <div class="summary-card"><div class="label">参加者</div><div class="value" id="sPeople">0</div></div>
+    <div class="summary-card"><div class="label">この工程の付箋</div><div class="value" id="sNotes">0</div></div>
+    <div class="summary-card"><div class="label">参加者に配信中</div><div class="value" id="sLive" style="font-size:14px;">工程1</div></div>
+  </div>
+
+  <!-- Step intro + participant controls -->
+  <div class="panel step-intro">
+    <div class="step-intro-main">
+      <h2 id="stepHeading">工程</h2>
+      <p class="muted" id="stepGoal"></p>
+      <p class="muted-small" id="stepGuide"></p>
+      <div class="step-actions">
+        <button class="btn btn-primary btn-sm" id="pushStepBtn">📡 この工程を参加者に配信</button>
+        <a class="btn btn-teal btn-sm" id="openBoardBtn" href="#" target="_blank">参加者画面を開く</a>
+        <button class="btn btn-outline btn-sm" id="copyUrlBtn">参加URLをコピー</button>
+      </div>
+      <div class="notice" id="pushNotice" style="display:none;"></div>
+    </div>
+    <div class="step-intro-qr">
+      <div class="qr-box qr-box-sm" id="qr"></div>
+      <div class="qr-caption">参加者はこのQRをスキャン</div>
+      <div class="qr-url" id="qrUrl"></div>
+    </div>
+  </div>
+
+  <div class="analyze-grid step-grid">
+
+    <!-- Left: live sticky board -->
+    <div class="panel">
+      <div class="panel-head">
+        <h2>📌 参加者の付箋（リアルタイム）</h2>
+        <div class="view-toggle" role="tablist" aria-label="表示モード">
+          <button id="viewSticky" role="tab" aria-selected="true">付箋</button>
+          <button id="viewList"   role="tab" aria-selected="false">リスト</button>
+        </div>
+      </div>
+      <p class="muted-small">ファシリテータもここから付箋を追加できます。</p>
+      <div class="board board-embed" id="board"></div>
+
+      <div id="tableView" style="display:none;">
+        <h3>付箋を表にまとめる</h3>
+        <div id="tableViewBody"></div>
+      </div>
+    </div>
+
+    <!-- Right: inputs / AI / result / decision -->
+    <div class="panel">
+      <h2 id="aiHeading">AIで作る</h2>
+
+      <details class="inputs-block" open>
+        <summary>📥 前工程からの入力（プロンプトに自動で含まれます）</summary>
+        <div id="inputsList"></div>
+      </details>
+
+      <div class="prompt-copy-block">
+        <h3 style="margin-top:0;">🟢 無料で分析する（推奨）</h3>
+        <p style="font-size:13px;color:var(--subtle);line-height:1.6;">
+          下のボタンで、前工程の結果とこの工程の付箋を組み込んだプロンプトを表示・コピーできます。
+          <a href="https://claude.ai" target="_blank" rel="noopener" style="color:var(--teal);text-decoration:underline;">claude.ai</a>
+          や ChatGPT に貼り付けて、返ってきた結果を下の「AIの結果」に貼り付けてください。
+        </p>
+        <button class="btn btn-teal" id="copyPromptBtn" style="width:100%;">📋 プロンプトをコピー</button>
+      </div>
+
+      <details style="margin-top:14px;">
+        <summary style="cursor:pointer;font-size:13px;color:var(--subtle);font-weight:600;">有料で API 経由で自動生成する（任意）</summary>
+        <div class="api-key-block" style="margin-top:10px;">
+          <label for="apiKey" style="font-size:13px;font-weight:600;color:var(--navy);">Anthropic API キー</label>
+          <input id="apiKey" type="password" placeholder="sk-ant-..." autocomplete="off" />
+          <label class="checkbox"><input type="checkbox" id="rememberKey" /> このタブだけで保持する（リロードで消える）</label>
+          <label for="modelSelect" style="font-size:13px;font-weight:600;color:var(--navy);margin-top:8px;">モデル</label>
+          <select id="modelSelect"></select>
+          <button class="btn btn-primary" id="generateBtn" style="margin-top:6px;">生成する</button>
+          <div class="notice">APIキーはこのブラウザから直接 Anthropic に送信されます（このサイトのサーバーには送られません）。</div>
+        </div>
+      </details>
+
+      <h3 style="margin-top:20px;">🤖 AIの結果 <span class="muted-small" id="resultMeta"></span></h3>
+      <textarea id="resultText" class="step-textarea" placeholder="claude.ai / ChatGPT の返答をここに貼り付けて「結果を保存」"></textarea>
+      <div class="row-actions">
+        <button class="btn btn-teal btn-sm" id="saveResultBtn">結果を保存</button>
+        <button class="btn btn-outline btn-sm" id="toggleRenderBtn">整形して表示</button>
+        <button class="btn btn-outline btn-sm" id="copyResultBtn">結果をコピー</button>
+      </div>
+      <div id="swatches" class="swatches" style="display:none;"></div>
+      <div class="ai-output" id="resultRendered" style="display:none;"></div>
+
+      <h3 style="margin-top:22px;" id="decisionLabel">この工程の決定事項</h3>
+      <p class="muted-small">AIの案から選んだ／磨いた内容。次の工程はこれを入力に使います（未入力なら「AIの結果」全文を使います）。</p>
+      <textarea id="decisionText" class="step-textarea step-textarea-sm"></textarea>
+      <div class="row-actions">
+        <button class="btn btn-primary btn-sm" id="saveDecisionBtn">決定事項を保存</button>
+        <span class="muted-small" id="decisionMeta"></span>
+      </div>
+
+      <div class="step-nav-buttons">
+        <a class="btn btn-ghost btn-sm" id="prevStepBtn" href="#">← 前の工程</a>
+        <a class="btn btn-teal btn-sm" id="nextStepBtn" href="#">次の工程へ →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel" style="margin-top:20px;">
+    <h2>📦 書き出し</h2>
+    <p class="muted-small">工程1〜8の付箋・AI結果・決定事項をまとめて書き出します。</p>
+    <button class="btn btn-outline btn-sm" id="exportMdBtn">Markdown書き出し（全工程）</button>
+    <button class="btn btn-outline btn-sm" id="exportJsonBtn">JSON書き出し（全工程）</button>
+  </div>
+
+</div>
+
+<!-- Note add/edit modal (same as the board) -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <h3 id="modalTitle">付箋を追加</h3>
+    <div class="modal-meta" id="modalMeta"></div>
+    <textarea id="modalText" maxlength="200" placeholder="思いついたことを書いてみましょう（200文字以内）"></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="modalCancel">キャンセル</button>
+      <button class="btn btn-teal" id="modalSave">保存</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/js/step.js"></script>
+<script type="module" src="/js/help-widget.js"></script>
+</body>
+</html>

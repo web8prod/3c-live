@@ -100,3 +100,46 @@ ${fmt(cp)}
 
 上記をもとに、未来バリュープロポジションを3案、続けて総合考察を出してください。`;
 }
+
+
+/**
+ * Generic call used by the training steps 2〜8 (工程2〜8).
+ * @param {object} args
+ * @param {string} args.apiKey   - Anthropic API key (sk-ant-...)
+ * @param {string} [args.model]
+ * @param {string} args.prompt   - full user prompt (already contains the data)
+ * @param {string} [args.system]
+ * @param {number} [args.maxTokens]
+ * @returns {Promise<string>}   - text from the model
+ */
+export async function generateText({ apiKey, model, prompt, system, maxTokens }) {
+  if (!apiKey || !apiKey.startsWith("sk-ant-")) {
+    throw new Error("APIキー（sk-ant-...）を入力してください");
+  }
+  const body = {
+    model: model || DEFAULT_MODEL,
+    max_tokens: maxTokens || 4000,
+    system: system || "あなたは経営戦略・ブランドマーケティングのトップコンサルタントです。日本語で、Markdown で簡潔かつ具体的に書いてください。",
+    messages: [{ role: "user", content: prompt }]
+  };
+  const res = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": API_VERSION,
+      "anthropic-dangerous-direct-browser-access": "true"
+    },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    let msg = `Claude API エラー (${res.status})`;
+    try {
+      const j = await res.json();
+      msg = `${msg}: ${j.error?.message || JSON.stringify(j)}`;
+    } catch { /* ignore */ }
+    throw new Error(msg);
+  }
+  const data = await res.json();
+  return data.content?.map(b => b.text || "").join("") || "";
+}
