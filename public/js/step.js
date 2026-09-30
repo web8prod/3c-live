@@ -40,7 +40,7 @@ if (!room) {
   throw new Error("room not found");
 }
 
-const myName = getStoredName() || room?.hostName || "主催者";
+const myName = room?.hostName || getStoredName() || "主催者";
 const myId   = getClientId();
 
 // ---- Static header ----
