@@ -10,7 +10,7 @@ const code = getQuery("code").toUpperCase();
 if (/^[A-Z0-9]{6}$/.test(code)) {
   const room = await getRoomAsync(code);
   if (!room) throw new Error("room not found");   // analyze.js already redirects to /admin.html
-  const myName = getStoredName() || room?.hostName || "主催者";
+  const myName = room?.hostName || getStoredName() || "主催者";
 
   const nav = document.getElementById("stepsNav");
   const resultEl   = document.getElementById("vpResult");

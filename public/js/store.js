@@ -205,6 +205,27 @@ export async function deleteRoom(code) {
   return updateRoom(code, { status: "archived" });
 }
 
+/**
+ * One-shot counts of notes and participants per room, for the admin list.
+ * Returns { code: { notes, participants } }.
+ */
+export async function fetchRoomCounts() {
+  const counts = {};
+  const bump = (code, key) => {
+    if (!counts[code]) counts[code] = { notes: 0, participants: 0 };
+    counts[code][key]++;
+  };
+  const [n, p] = await Promise.all([
+    supabase.from("notes").select("room_code"),
+    supabase.from("participants").select("room_code")
+  ]);
+  if (n.error) console.warn("[fetchRoomCounts notes]", n.error);
+  if (p.error) console.warn("[fetchRoomCounts participants]", p.error);
+  for (const r of (n.data || [])) bump(r.room_code, "notes");
+  for (const r of (p.data || [])) bump(r.room_code, "participants");
+  return counts;
+}
+
 export function subscribeRooms(cb) {
   roomsListeners.add(cb);
   // Fire cached state immediately, then ensure realtime + initial load.

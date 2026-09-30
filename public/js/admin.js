@@ -1,6 +1,6 @@
 import {
   listRooms, createRoom, deleteRoom, subscribeRooms,
-  listNotes, listParticipants
+  listNotes, listParticipants, fetchRoomCounts
 } from "./store.js";
 import {
   generateRoomCode, escapeHtml, formatDate, showToast
@@ -24,14 +24,19 @@ function statusLabel(status) {
   return `<span class="status-pill">${escapeHtml(status || "")}</span>`;
 }
 
+let roomCounts = {};   // { code: { notes, participants } } from fetchRoomCounts()
+let lastRooms = [];
+
 function render(rooms) {
+  lastRooms = rooms || [];
   if (!rooms || rooms.length === 0) {
     rowsEl.innerHTML = `<tr><td colspan="8" class="empty-state">まだセッションがありません。「＋ 新しいセッション」から作成してください。</td></tr>`;
     return;
   }
   rowsEl.innerHTML = rooms.map(r => {
-    const noteCount = listNotes(r.code).length;
-    const partCount = listParticipants(r.code).length;
+    const c = roomCounts[r.code];
+    const noteCount = c ? c.notes : listNotes(r.code).length;
+    const partCount = c ? c.participants : listParticipants(r.code).length;
     const dateStr = r.scheduledAt ? formatDate(r.scheduledAt) : "未設定";
     return `
       <tr data-code="${r.code}">
@@ -65,6 +70,7 @@ function render(rooms) {
 }
 
 subscribeRooms(render);
+fetchRoomCounts().then(c => { roomCounts = c; render(lastRooms); }).catch(e => console.warn(e));
 
 // Default schedule = today now+30min, rounded to next quarter hour
 function defaultDateTimeLocal() {

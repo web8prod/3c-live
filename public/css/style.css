@@ -730,3 +730,12 @@ header.app-header {
 /* Bridge panel on the analyze page */
 .step-bridge .analyze-grid { grid-template-columns: 1fr 1fr; }
 @media (max-width: 980px) { .step-bridge .analyze-grid { grid-template-columns: 1fr; } }
+
+/* Admin list: keep headers, status and action buttons on one line (the 工程2〜8 button widened the table) */
+.seminar-table th, .seminar-table td.actions, .seminar-table td.date-cell, .seminar-table td.code-cell { white-space: nowrap; }
+.status-pill { white-space: nowrap; }
+.seminar-table td.actions .btn { margin-bottom: 4px; }
+@media (max-width: 1100px) {
+  .seminar-table-wrap { overflow-x: auto; }
+  .seminar-table { min-width: 960px; }
+}
