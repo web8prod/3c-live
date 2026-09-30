@@ -1,6 +1,8 @@
 import {
   getRoom, getRoomAsync, addNote, updateNote, deleteNote, subscribeNotes, setParticipant
 } from "./store.js";
+import { subscribeStepData, getCurrentStep } from "./step-store.js";
+import { stepUrl } from "./steps.js";
 import {
   CATEGORIES, MAX_CUSTOM_THEME_LEN, isFixedSub,
   getQuery, getStoredName, setStoredName, getClientId,
@@ -333,3 +335,21 @@ function renderNoteEl(n) {
 }
 
 subscribeNotes(code, renderNotes);
+
+// ---- Training steps 2〜8: follow the facilitator ----
+// If the facilitator has pushed a later step ("参加者に配信"), move this
+// participant to that step's board. Nothing happens for plain 3C sessions.
+let stepRedirecting = false;
+if (initialRoom) subscribeStepData(code, (_map, loaded) => {
+  if (!loaded || stepRedirecting) return;
+  const live = getCurrentStep(code);
+  if (live >= 2) {
+    stepRedirecting = true;
+    showToast(`主催者が工程${live}に進みました。移動します…`, 1500);
+    setTimeout(() => {
+      const now = getCurrentStep(code);   // re-read: the facilitator may have changed it meanwhile
+      if (now >= 2) location.href = stepUrl(code, now, true);
+      else stepRedirecting = false;
+    }, 1200);
+  }
+});

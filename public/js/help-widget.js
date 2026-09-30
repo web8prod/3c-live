@@ -59,7 +59,14 @@ const FAQ = [
        "- 管理画面: <code>/admin</code>（パスワード保護）<br>" +
        "- 実施画面: <code>/host?code=XXXXXX</code><br>" +
        "- 受講者画面: <code>/?code=XXXXXX</code><br>" +
-       "- 分析画面: <code>/analyze?code=XXXXXX</code>"
+       "- 分析画面: <code>/analyze?code=XXXXXX</code><br>" +
+       "- 研修の工程画面（主催者）: <code>/step?code=XXXXXX&step=2</code> 〜 <code>step=8</code><br>" +
+       "- 研修の工程ボード（参加者）: <code>/board?code=XXXXXX&step=2</code> 〜 <code>step=8</code>"
+  },
+  {
+    keywords: ["工程", "研修", "セグメント", "ペルソナ", "ポジショニング", "コンセプト", "ファネル", "アクション"],
+    q: "研修の工程2〜8（市場細分化〜アクションプラン）はどこから？",
+    a: "管理画面のセッション行の <strong>「工程2〜8」</strong> ボタンから。3C と同じ流れで、参加者が付箋 → 「プロンプトをコピー」→ claude.ai → 返答を「AIの結果」に貼って保存、で次の工程に自動でつながります。「📡 この工程を参加者に配信」を押すと参加者のスマホが自動でその工程のボードに切り替わります。詳しくは <a href='/help#steps' target='_blank'>使い方ページ</a>。"
   }
 ];
 

@@ -22,6 +22,8 @@
     <div id="seminarMeta" class="muted-small"></div>
   </div>
 
+  <div id="stepsNav"></div>
+
   <div class="summary-bar">
     <div class="summary-card"><div class="label">部屋コード</div><div class="value" id="sCode">------</div></div>
     <div class="summary-card"><div class="label">参加者</div><div class="value" id="sPeople">0</div></div>
@@ -102,9 +104,32 @@
 
   </div>
 
+  <!-- Bridge to the training steps 2〜8 -->
+  <div class="panel step-bridge" style="margin-top:20px;">
+    <h2>➡️ 工程2以降で使う結果を保存</h2>
+    <p class="muted-small">claude.ai などから返ってきた未来バリュープロポジションの結果をここに貼り付けて保存すると、工程2（市場細分化）以降のプロンプトに自動で組み込まれます。</p>
+    <div class="analyze-grid">
+      <div>
+        <h3 style="margin-top:0;">🤖 AIの結果（3案＋総合考察） <span class="muted-small" id="vpResultMeta"></span></h3>
+        <textarea id="vpResult" class="step-textarea" placeholder="claude.ai / ChatGPT の返答を貼り付け"></textarea>
+        <div class="row-actions"><button class="btn btn-teal btn-sm" id="saveVpResultBtn">結果を保存</button></div>
+      </div>
+      <div>
+        <h3 style="margin-top:0;">✅ 未来バリュープロポジション（決定） <span class="muted-small" id="vpDecisionMeta"></span></h3>
+        <textarea id="vpDecision" class="step-textarea" placeholder="3案から選んだ／磨いたバリュープロポジションを1つ"></textarea>
+        <div class="row-actions">
+          <button class="btn btn-primary btn-sm" id="saveVpDecisionBtn">決定事項を保存</button>
+          <a class="btn btn-outline btn-sm" id="goStep2Btn" href="#">工程2: 市場細分化 へ →</a>
+          <button class="btn btn-ghost btn-sm" id="pushStep1Btn" title="工程2以降を配信した後、参加者の画面を3Cボードに戻します">参加者を3Cボードに戻す</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script type="module" src="/js/analyze.js"></script>
+<script type="module" src="/js/analyze-steps.js"></script>
 <script type="module" src="/js/help-widget.js"></script>
 </body>
 </html>

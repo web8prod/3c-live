@@ -45,6 +45,7 @@ function render(rooms) {
         <td class="actions">
           <a class="btn btn-teal btn-sm" href="/host.html?code=${r.code}">実施</a>
           <a class="btn btn-outline btn-sm" href="/analyze.html?code=${r.code}">分析</a>
+          <a class="btn btn-outline btn-sm" href="/step.html?code=${r.code}&step=2" title="研修の工程2〜8（市場細分化〜アクションプラン）">工程2〜8</a>
           <button class="btn btn-ghost btn-sm row-del" data-code="${r.code}">削除</button>
         </td>
       </tr>

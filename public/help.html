@@ -119,6 +119,52 @@
     </ol>
   </section>
 
+  <!-- Section 3b: 研修の工程2〜8 -->
+  <section class="help-section" id="steps">
+    <h2>🧭 研修講座（全8工程）の進め方</h2>
+    <p style="color:var(--subtle);font-size:14px;line-height:1.7;margin-bottom:14px;">
+      「攻めのDX・AI活用ブランドマーケティング戦略構築講座」用の機能です。工程1は上の 3C 分析そのもの。
+      工程2以降も <strong>同じ流れ（参加者が付箋 → AI で分析）</strong> で、前の工程の結果が次の工程のプロンプトに自動で入ります。
+      管理画面のセッション行の「<strong>工程2〜8</strong>」ボタンから開きます。
+    </p>
+    <div class="screen-card">
+      <h3>🗂 工程一覧</h3>
+      <ul>
+        <li><strong>1. 3C分析 → バリュープロポジション</strong>（既存）: 分析画面の下部「工程2以降で使う結果を保存」に AI の結果と決定した VP を貼って保存</li>
+        <li><strong>2. 市場細分化／見込み客の再考</strong>: 顧客付箋＋セグメント案 → AI がスコアリング → 優先ターゲット</li>
+        <li><strong>3. AIベースペルソナの再考</strong>: 優先ターゲット → 行動・感情・購買傾向つきペルソナ</li>
+        <li><strong>4. ポジショニングの再考</strong>: 競合付箋＋口コミ/SNS → 2軸マップ → 空きポジション</li>
+        <li><strong>5. ブランドコンセプト立案</strong>: VP＋ペルソナ → キャッチコピー案／ブランドストーリー案（トーナメント用の組み合わせ付き）</li>
+        <li><strong>6. クリエイティブ要素立案</strong>: コンセプト → メインカラー（HEX は色見本で表示）／タグライン案と評価</li>
+        <li><strong>7. マーケティングファネル設計</strong>: 認知〜購買〜紹介の各段階に媒体・内容を付箋 → 表</li>
+        <li><strong>8. アクションプランの検討</strong>: 1〜7 を統合 → 施策一覧（担当・期限・優先度）</li>
+      </ul>
+    </div>
+    <div class="screen-card">
+      <h3>🎤 工程画面 <code>/step?code=XXXXXX&amp;step=N</code>（主催者用）</h3>
+      <ul>
+        <li><strong>📡 この工程を参加者に配信</strong>: 参加者のスマホ画面がその工程のボードに自動で切り替わります（3C の QR から入った人も誘導されます）</li>
+        <li>左: 参加者の付箋がリアルタイムで並ぶ（主催者も追加可）。工程7は「表にまとめる」も表示</li>
+        <li>右: 「📥 前工程からの入力」→「📋 プロンプトをコピー」→ claude.ai に貼る → 返答を「🤖 AIの結果」に貼って保存 → 「✅ 決定事項」を保存 → 次の工程へ</li>
+        <li>決定事項が空なら、次の工程は「AIの結果」全文を入力として使います</li>
+        <li>下部の「Markdown書き出し（全工程）」で 8 工程分の付箋・結果・決定事項をまとめて保存</li>
+      </ul>
+    </div>
+    <div class="screen-card">
+      <h3>✋ 工程ボード <code>/board?code=XXXXXX&amp;step=N</code>（参加者用）</h3>
+      <ul>
+        <li>3C ボードと同じ操作。列とテーマが工程ごとに変わります（「＋ 自分でテーマを作って追加」も同じ）</li>
+        <li>主催者が別の工程を配信すると自動でそのボードへ移動。3C に戻すときは分析画面の「参加者を3Cボードに戻す」</li>
+      </ul>
+    </div>
+    <div class="screen-card">
+      <h3>🔧 初回セットアップ（開発担当向け）</h3>
+      <p><strong>SQL の実行は任意です。</strong>何もしなくても工程2〜8 は動きます（追加テーブルが無い場合は、既存の <code>notes</code> テーブルと、管理画面には出ない隠し部屋に自動で保存します）。
+      きれいに分けて保存したい場合は、Supabase の SQL Editor で <code>supabase-migration-steps.sql</code> を 1 回実行してください（<code>step_notes</code> / <code>step_data</code> テーブルを追加。既存テーブルは変更しません）。
+      ※ 実行のタイミングで保存先が切り替わるので、研修の途中では実行しないでください（それまでのデータは隠し部屋側に残ります）。</p>
+    </div>
+  </section>
+
   <!-- Section 4: FAQ -->
   <section class="help-section">
     <h2>❓ よくある質問（FAQ）</h2>
