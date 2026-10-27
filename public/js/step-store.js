@@ -83,7 +83,7 @@ async function resolveChildRoom(parent, create) {
         if (!create) return code;   // not created yet; readers just use the future code
         const token = Array.from(crypto.getRandomValues(new Uint8Array(24))).map(b => b.toString(16).padStart(2, "0")).join("");
         const { error: insErr } = await supabase.from("rooms").insert({
-          code, title: childTitle(parent), scheduled_at: null, host_name: "",
+          code, title: childTitle(parent), scheduled_at: 0, host_name: "",
           memo: "{}", status: "archived", host_token: token, created_at: Date.now()
         });
         if (insErr && !/duplicate/i.test(insErr.message || "")) throw insErr;
@@ -328,7 +328,7 @@ export function getStepDataRecord(code, step, key) {
   return (stepDataCache[code] || {})[dkey(step, key)] || null;
 }
 
-export const MAX_STEP_CONTENT = 20000;
+export const MAX_STEP_CONTENT = 60000;
 
 export async function setStepData(code, step, key, content, updatedBy = "") {
   await detectMode();
@@ -344,20 +344,27 @@ export async function setStepData(code, step, key, content, updatedBy = "") {
     if (error) throw error;
   } else {
     const child = await ensureChildRoom(code);
-    // read-modify-write of the JSON map kept in the child room's memo, with an
-    // optimistic check on the previous value so concurrent saves don't drop keys.
+    // read-modify-write of the JSON map kept in the child room's memo.
+    // Concurrency check uses a small revision number kept in the hidden room's
+    // scheduled_at column (unused for that room). Comparing the whole memo text
+    // put it into the request URL and broke once a long AI result was saved.
     let saved = false;
-    for (let attempt = 0; attempt < 4 && !saved; attempt++) {
-      const { data, error: readErr } = await supabase.from("rooms").select("memo").eq("code", child).maybeSingle();
+    for (let attempt = 0; attempt < 5 && !saved; attempt++) {
+      const { data, error: readErr } = await supabase
+        .from("rooms").select("memo,scheduled_at").eq("code", child).maybeSingle();
       if (readErr) throw readErr;
-      const prev = (data && typeof data.memo === "string") ? data.memo : "{}";
-      const map = parseMemoMap(prev);
+      const rev = (data && Number.isFinite(Number(data.scheduled_at)) && data.scheduled_at !== null)
+        ? Number(data.scheduled_at) : null;
+      const map = parseMemoMap(data?.memo);
       map[dkey(step, key)] = rec;
-      const { data: updated, error } = await supabase
-        .from("rooms").update({ memo: JSON.stringify(map) })
-        .eq("code", child).eq("memo", prev).select();
+      let q = supabase.from("rooms")
+        .update({ memo: JSON.stringify(map), scheduled_at: (rev ?? 0) + 1 })
+        .eq("code", child);
+      q = rev === null ? q.is("scheduled_at", null) : q.eq("scheduled_at", rev);
+      const { data: updated, error } = await q.select("code");
       if (error) throw error;
       saved = !!(updated && updated.length);
+      if (!saved) await new Promise(r => setTimeout(r, 150 + Math.random() * 250));
     }
     if (!saved) throw new Error("同時に保存されたため失敗しました。もう一度お試しください");
   }
