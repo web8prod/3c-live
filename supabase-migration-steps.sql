@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS public.step_data (
   room_code   TEXT NOT NULL REFERENCES public.rooms(code) ON DELETE CASCADE,
   step        SMALLINT NOT NULL CHECK (step BETWEEN 0 AND 8),
   key         TEXT NOT NULL CHECK (char_length(key) BETWEEN 1 AND 32),
-  content     TEXT NOT NULL DEFAULT '' CHECK (char_length(content) <= 20000),
+  content     TEXT NOT NULL DEFAULT '' CHECK (char_length(content) <= 60000),
   updated_at  BIGINT NOT NULL,
   updated_by  TEXT,
   PRIMARY KEY (room_code, step, key)
