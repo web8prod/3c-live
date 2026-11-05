@@ -175,7 +175,7 @@ function mountWidget() {
   panel.className = "help-panel";
   panel.innerHTML = `
     <div class="help-panel-header">
-      <h3>💬 3C Live ヘルプ</h3>
+      <h3>💬 BrandMarketing Live ヘルプ</h3>
       <p>質問キーワードで検索 or 下のリストから選ぶ</p>
     </div>
     <div class="help-panel-search">

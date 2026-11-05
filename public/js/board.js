@@ -41,7 +41,7 @@ const viewListBtn   = document.getElementById("viewList");
 codePill.textContent = code;
 stepPill.textContent = `工程${step}`;
 titleMetaEl.textContent = (getRoom(code) || initialRoom)?.title || "研修セッション";
-document.title = `工程${step} ${def.short} | 3C Live`;
+document.title = `工程${step} ${def.short} | BrandMarketing Live`;
 document.getElementById("stepTitle").textContent = `${def.icon} 工程${step}: ${def.title}`;
 document.getElementById("stepGuide").textContent = def.participantGuide || def.goal || "";
 
