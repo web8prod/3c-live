@@ -44,7 +44,7 @@ const myName = room?.hostName || getStoredName() || "主催者";
 const myId   = getClientId();
 
 // ---- Static header ----
-document.title = `工程${step} ${def.short} | 3C Live`;
+document.title = `工程${step} ${def.short} | BrandMarketing Live`;
 document.getElementById("seminarTitle").textContent = room?.title || "(無題)";
 document.getElementById("seminarMeta").textContent = `${formatDate(room?.scheduledAt)} ・ 主催: ${room?.hostName || ""}`;
 document.getElementById("sCode").textContent = code;

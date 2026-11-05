@@ -1,4 +1,4 @@
--- 3C Live - Supabase schema
+-- BrandMarketing Live - Supabase schema
 -- Run this ONCE in Supabase Console → SQL Editor → New query → paste → Run.
 --
 -- Creates tables, Row Level Security policies, and enables Realtime broadcast

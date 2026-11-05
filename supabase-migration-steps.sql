@@ -1,4 +1,4 @@
--- 3C Live - 研修工程2〜8 用の追加スキーマ（実行は任意）
+-- BrandMarketing Live - 研修工程2〜8 用の追加スキーマ（実行は任意）
 -- 既存の rooms / notes / participants は一切変更しません（3C分析はそのまま動きます）。
 -- Supabase Console → SQL Editor → New query → 貼り付け → Run
 --
